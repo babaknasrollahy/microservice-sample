@@ -1,0 +1,157 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-deployment
+  labels:
+    name: python-app
+    type: front-end
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: python-app
+      type: front-end
+
+  template:
+    metadata:
+      name: python-pod
+      labels: 
+        name: python-app
+        type: front-end
+
+    spec:
+      containers:
+        - name: pythonapp
+          image: docker pull dockersamples/examplevotingapp_vote
+          ports:
+          - containerPort: 80
+
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-deployment
+  labels:
+    name: nodejs-app
+    type: front-end
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: nodejs-app
+      type: front-end
+
+  template:
+    metadata:
+      name: nodejs-pod
+      labels: 
+        name: nodejs-app
+        type: front-end
+
+    spec:
+      containers:
+        - name: nodejsapp
+          image: dockersamples/examplevotingapp_result
+          ports:
+          - containerPort: 80
+
+
+---
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+  labels:
+    name: redis-app
+    type: data-base
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: redis-app
+      type: data-base
+
+  template:
+    metadata:
+      name: redis-pod
+      labels: 
+        name: redis-app
+        type: data-base
+
+    spec:
+      containers:
+        - name: redis
+          image: redis
+          ports:
+          - containerPort: 6379
+
+
+---
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+  labels:
+    name: postgres-app
+    type: data-base
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: postgres-app
+      type: data-base
+
+  template:
+    metadata:
+      name: postgres-pod
+      labels: 
+        name: postgres-app
+        type: data-base
+
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:9.4
+          ports:
+          - containerPort: 5432
+
+
+---
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker-deployment
+  labels:
+    name: worker-app
+    type: back-end
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: worker-app
+      type: back-end
+
+  template:
+    metadata:
+      name: worker-pod
+      labels: 
+        name: worker-app
+        type: back-end
+
+    spec:
+      containers:
+        - name: workerapp
+          image: dockersamples/examplevotingapp_worker

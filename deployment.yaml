@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: pythonapp
-          image: docker pull dockersamples/examplevotingapp_vote
+          image: dockersamples/examplevotingapp_vote
           ports:
           - containerPort: 80
 

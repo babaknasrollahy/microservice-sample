@@ -1,0 +1,40 @@
+version: '3'
+services:
+  vote:
+    image: dockersamples/examplevotingapp_vote
+    container_name: voting_app
+    ports:
+      - 5005:80
+    links:
+     - redis:redis
+
+  nodejs:
+    image: dockersamples/examplevotingapp_result
+    container_name: nodejs_app
+    ports:
+     - 5006:80
+    links:
+      - postgres:postgres
+
+
+  worker: 
+    image: dockersamples/examplevotingapp_worker
+    container_name: worker_app
+    links:
+     - redis:redis
+     - postgres:postgres
+
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - 6379:6379
+
+  
+  postgres:
+    image: postgres:9.4
+    container_name: postgres
+    ports:
+      - 5432:5432
+    
